@@ -1,0 +1,17 @@
+[
+    {
+        "colaborador": "Murilo",
+        "salariobase": 1890.0,
+        "bonus": 300.0
+    },
+    {
+        "colaborador": "Jurema",
+        "salariobase": 650.0,
+        "bonus": 20.0
+    },
+    {
+        "colaborador": "Catarina",
+        "salariobase": 2350.0,
+        "bonus": 600.0
+    }
+]
