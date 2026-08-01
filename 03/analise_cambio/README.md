@@ -1,0 +1,1 @@
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Nobookie/Python-II/blob/main/03/analise_cambio/analise_cambio_v4.ipynb)

@@ -1,0 +1,185 @@
+const codeStr = (lines) => lines.join('\n');
+
+window.DATA_OFICINA = {
+    id: 'oficina',
+    title: '2. Mão na Massa',
+    icon: 'fa-solid fa-laptop-code',
+    content: [
+        {
+            type: 'card',
+            title: '<i class="fa-solid fa-rocket"></i> Marco Zero: Setup do Ambiente de Dados no VS Code',
+            html: `
+            <p>Antes de codificar, precisamos equipar nosso editor para o paradigma de Ciência de Dados:</p>
+            <ol style="margin-left: 1.5rem; margin-bottom: 1.5rem;">
+                <li>Abra o <strong>VS Code</strong> e clique no ícone de Extensões (quadrados na barra lateral esquerda).</li>
+                <li>Pesquise por <strong>Jupyter</strong> (fabricada pela Microsoft) e clique em Instalar.</li>
+                <li>Crie um novo arquivo vazio chamado <strong>analise_cambio.ipynb</strong> e abra-o.</li>
+                <li>No terminal do VS Code, instale o arsenal de bibliotecas executando o comando abaixo:</li>
+            </ol>
+            <pre><code>pip install requests pandas matplotlib openpyxl</code></pre>
+            <p><strong>A Magia do Notebook:</strong> A partir de agora, você não programará em um bloco único. Você criará <em>Células Textuais (Markdown)</em> para documentar seu raciocínio e <em>Células de Código</em> para rodar o Python!</p>
+            `
+        },
+        {
+            type: 'accordion',
+            items: [
+                {
+                    title: 'PMV 1.0: Ingestão de Dados (API e Tuplas)',
+                    code: codeStr([
+                        '<span class="c-comment"># ========================================================</span>',
+                        '<span class="c-comment"># 📝 CRIE UMA CÉLULA MARKDOWN (TEXTO) E COLE A EXPLICAÇÃO:</span>',
+                        '<span class="c-comment"># ========================================================</span>',
+                        '<span class="c-comment">\'\'\'',
+                        '### Etapa 1: Ingestão e Blindagem de Dados',
+                        'Nesta célula, nosso "garçom" (biblioteca `requests`) vai à internet buscar o formato JSON contendo o histórico do Dólar dos últimos 15 dias.',
+                        'Para garantir a integridade dos dados históricos, empacotamos a Data e o Valor dentro de uma **Tupla** (uma estrutura imutável) e as armazenamos em uma Lista Dinâmica.',
+                        '\'\'\'</span>',
+                        '',
+                        '<span class="c-comment"># ========================================================</span>',
+                        '<span class="c-comment"># 💻 CRIE UMA CÉLULA DE CÓDIGO (PYTHON) E COLE O SCRIPT:</span>',
+                        '<span class="c-comment"># ========================================================</span>',
+                        '<span class="c-keyword">import</span> requests',
+                        '',
+                        '<span class="c-comment"># URL da API pública AwesomeAPI (Cotação do Dólar dos últimos 15 dias)</span>',
+                        'url_api = <span class="c-string">"https://economia.awesomeapi.com.br/json/daily/USD-BRL/15"</span>',
+                        '',
+                        'resposta = requests.get(url_api)',
+                        'dados_json = resposta.json()',
+                        '',
+                        'historico_dolar = []',
+                        '',
+                        '<span class="c-keyword">for</span> dia <span class="c-keyword">in</span> dados_json:',
+                        '    data = dia[<span class="c-string">"create_date"</span>][:10]',
+                        '    valor = <span class="c-func">float</span>(dia[<span class="c-string">"bid"</span>])',
+                        '    ',
+                        '    <span class="c-comment"># Empacotando em Tupla (imutável)</span>',
+                        '    tupla_diaria = (data, valor)',
+                        '    historico_dolar.append(tupla_diaria)',
+                        '',
+                        '<span class="c-func">print</span>(<span class="c-string">"Coleta concluída! Últimos 3 dias carregados:"</span>)',
+                        '<span class="c-func">print</span>(historico_dolar[:3])'
+                    ])
+                },
+                {
+                    title: 'Versão 2.0: Matriz Multidimensional (Lookup Table)',
+                    code: codeStr([
+                        '<span class="c-comment"># ========================================================</span>',
+                        '<span class="c-comment"># 📝 CRIE UMA CÉLULA MARKDOWN (TEXTO) E COLE A EXPLICAÇÃO E O PROMPT:</span>',
+                        '<span class="c-comment"># ========================================================</span>',
+                        '<span class="c-comment">\'\'\'',
+                        '### Etapa 2: Transformação de Dados via Lookup Table',
+                        'Para evitar um código espaguete cheio de `if/elif/else`, utilizamos uma Matriz (Listas dentro de Listas).',
+                        'Cruzando o Eixo Y (Volatilidade) com o Eixo X (Tendência), a aplicação acessa a decisão de compra de forma instantânea através dos índices!',
+                        '',
+                        '**🤖 PROMPT ENVIADO PARA A IA:**',
+                        '> "Refatore a lógica de decisão de compra cambial baseada na variação do dia. Não utilize múltiplos blocos if/elif/else para a decisão final. Crie uma Matriz Multidimensional (Lookup Table) onde a Linha representa a Volatilidade (Baixa/Alta) e a Coluna representa a Tendência (Queda/Estável/Alta). Calcule os índices matematicamente e consulte a matriz diretamente para obter o status estratégico de cada dia."',
+                        '\'\'\'</span>',
+                        '',
+                        '<span class="c-comment"># ========================================================</span>',
+                        '<span class="c-comment"># 💻 CRIE UMA CÉLULA DE CÓDIGO (PYTHON) E COLE O SCRIPT:</span>',
+                        '<span class="c-comment"># ========================================================</span>',
+                        '<span class="c-comment"># Eixo Y (Linhas 0, 1) | Eixo X (Colunas 0, 1, 2)</span>',
+                        'matriz_decisao = [',
+                        '    [<span class="c-string">"✅ Comprar"</span>, <span class="c-string">"⏸️ Manter"</span>, <span class="c-string">"⏳ Aguardar Queda"</span>],       <span class="c-comment"># Vol. Baixa</span>',
+                        '    [<span class="c-string">"⚠️ Risco: Comprar"</span>, <span class="c-string">"⚠️ Risco: Manter"</span>, <span class="c-string">"🛑 Paralisar"</span>] <span class="c-comment"># Vol. Alta</span>',
+                        ']',
+                        '',
+                        'relatorio_analitico = []',
+                        '',
+                        '<span class="c-comment"># Lendo do dia mais antigo para o mais novo</span>',
+                        '<span class="c-keyword">for</span> i <span class="c-keyword">in</span> <span class="c-func">range</span>(<span class="c-func">len</span>(historico_dolar)-2, -1, -1):',
+                        '    hoje = historico_dolar[i][1]',
+                        '    ontem = historico_dolar[i+1][1]',
+                        '    variacao = hoje - ontem',
+                        '    ',
+                        '    <span class="c-comment"># Convertendo cenário em índices (Matemática pura)</span>',
+                        '    tendencia_idx = 0 <span class="c-keyword">if</span> variacao < -0.02 <span class="c-keyword">else</span> (2 <span class="c-keyword">if</span> variacao > 0.02 <span class="c-keyword">else</span> 1)',
+                        '    vol_idx = 1 <span class="c-keyword">if</span> <span class="c-func">abs</span>(variacao) > 0.06 <span class="c-keyword">else</span> 0',
+                        '    ',
+                        '    <span class="c-comment"># Consulta instantânea O(1)</span>',
+                        '    decisao = matriz_decisao[vol_idx][tendencia_idx]',
+                        '    ',
+                        '    relatorio_analitico.append({',
+                        '        <span class="c-string">"Data"</span>: historico_dolar[i][0],',
+                        '        <span class="c-string">"Cotacao_USD"</span>: hoje,',
+                        '        <span class="c-string">"Variacao_Dia"</span>: <span class="c-func">round</span>(variacao, 4),',
+                        '        <span class="c-string">"Acao_Estrategica"</span>: decisao',
+                        '    })',
+                        '',
+                        '<span class="c-func">print</span>(<span class="c-string">"Lógica de Matriz O(1) processada com sucesso!"</span>)'
+                    ])
+                },
+                {
+                    title: 'Versão 3.0: Data Viz (Gráfico com Matplotlib)',
+                    code: codeStr([
+                        '<span class="c-comment"># ========================================================</span>',
+                        '<span class="c-comment"># 📝 CRIE UMA CÉLULA MARKDOWN (TEXTO) E COLE A EXPLICAÇÃO E O PROMPT:</span>',
+                        '<span class="c-comment"># ========================================================</span>',
+                        '<span class="c-comment">\'\'\'',
+                        '### Etapa 3: Visualização de Dados (Data Viz)',
+                        'Como estamos em um arquivo iterativo `.ipynb`, podemos renderizar imagens nativamente! Utilizamos o `matplotlib` para plotar um gráfico de linhas dinâmico, evidenciando a tendência da cotação.',
+                        '',
+                        '**🤖 PROMPT ENVIADO PARA A IA:**',
+                        '> "Crie uma célula de código importando a biblioteca matplotlib. Extraia as datas e os valores do nosso dicionário relatorio_analitico e construa um gráfico de linhas (lineplot). Formate o visual de forma profissional: adicione grid tracejado, rotacione o eixo X em 45 graus para facilitar a leitura das datas, pinte a linha do dólar de verde e garanta que a prancheta seja renderizada nativamente abaixo da célula."',
+                        '\'\'\'</span>',
+                        '',
+                        '<span class="c-comment"># ========================================================</span>',
+                        '<span class="c-comment"># 💻 CRIE UMA CÉLULA DE CÓDIGO (PYTHON) E COLE O SCRIPT:</span>',
+                        '<span class="c-comment"># ========================================================</span>',
+                        '<span class="c-keyword">import</span> matplotlib.pyplot <span class="c-keyword">as</span> plt',
+                        '',
+                        '<span class="c-comment"># Preparando vetores para o gráfico</span>',
+                        'datas = [item[<span class="c-string">"Data"</span>] <span class="c-keyword">for</span> item <span class="c-keyword">in</span> relatorio_analitico]',
+                        'valores_usd = [item[<span class="c-string">"Cotacao_USD"</span>] <span class="c-keyword">for</span> item <span class="c-keyword">in</span> relatorio_analitico]',
+                        '',
+                        '<span class="c-comment"># Configurando a prancheta (Figure)</span>',
+                        'fig, eixo1 = plt.subplots(figsize=(10, 5))',
+                        '',
+                        'eixo1.plot(datas, valores_usd, color=<span class="c-string">"green"</span>, marker=<span class="c-string">"o"</span>, linewidth=2, label=<span class="c-string">"Dólar (BRL)"</span>)',
+                        'eixo1.set_xlabel(<span class="c-string">"Timeline"</span>, fontweight=<span class="c-string">"bold"</span>)',
+                        'eixo1.set_ylabel(<span class="c-string">"Preço USD"</span>, color=<span class="c-string">"green"</span>, fontweight=<span class="c-string">"bold"</span>)',
+                        'eixo1.tick_params(axis=<span class="c-string">"x"</span>, rotation=45)',
+                        '',
+                        'plt.title(<span class="c-string">"Monitoramento Cambial - TechSolutions"</span>, fontsize=14, pad=15)',
+                        'plt.grid(<span class="c-keyword">True</span>, linestyle=<span class="c-string">"--"</span>, alpha=0.6)',
+                        'plt.tight_layout()',
+                        '',
+                        '<span class="c-comment"># Exibe o gráfico</span>',
+                        'plt.show()'
+                    ])
+                },
+                {
+                    title: 'Versão Final: Exportação para Excel (.xlsx) com Pandas',
+                    code: codeStr([
+                        '<span class="c-comment"># ========================================================</span>',
+                        '<span class="c-comment"># 📝 CRIE UMA CÉLULA MARKDOWN (TEXTO) E COLE A EXPLICAÇÃO E O PROMPT:</span>',
+                        '<span class="c-comment"># ========================================================</span>',
+                        '<span class="c-comment">\'\'\'',
+                        '### Etapa 4: Geração de Artefato (Planilha Executiva)',
+                        'A diretoria consome relatórios. O Pandas assume a liderança transformando nossos dicionários em um `DataFrame` (uma tabela superpoderosa) e injetando esses dados em um arquivo físico de Excel usando a engine `openpyxl`.',
+                        '',
+                        '**🤖 PROMPT ENVIADO PARA A IA:**',
+                        '> "Crie a etapa final de processamento chamando a biblioteca Pandas. Converta a nossa base estruturada (relatorio_analitico) em um DataFrame bidimensional. Utilize a função display() nativa do Jupyter para mostrar o preview das 5 primeiras linhas e, por fim, exporte o resultado completo para um arquivo Excel (.xlsx) físico na máquina, ignorando a coluna de índice padrão."',
+                        '\'\'\'</span>',
+                        '',
+                        '<span class="c-comment"># ========================================================</span>',
+                        '<span class="c-comment"># 💻 CRIE UMA CÉLULA DE CÓDIGO (PYTHON) E COLE O SCRIPT:</span>',
+                        '<span class="c-comment"># ========================================================</span>',
+                        '<span class="c-keyword">import</span> pandas <span class="c-keyword">as</span> pd',
+                        '',
+                        '<span class="c-comment"># Transformando num DataFrame tabular do Pandas</span>',
+                        'df = pd.DataFrame(relatorio_analitico)',
+                        '',
+                        '<span class="c-func">print</span>(<span class="c-string">"--- PREVIEW DO RELATÓRIO EXECUTIVO ---"</span>)',
+                        '<span class="c-func">display</span>(df.head())',
+                        '',
+                        '<span class="c-comment"># Exportando para .xlsx usando OpenPyXL</span>',
+                        'df.to_excel(<span class="c-string">"relatorio_auditoria_cambial.xlsx"</span>, index=<span class="c-keyword">False</span>)',
+                        '',
+                        '<span class="c-func">print</span>(<span class="c-string">"\\n✅ SUCESSO! Planilha \'relatorio_auditoria_cambial.xlsx\' gerada!"</span>)'
+                    ])
+                }
+            ]
+        }
+    ]
+};
