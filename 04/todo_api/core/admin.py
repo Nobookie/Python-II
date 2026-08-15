@@ -9,3 +9,7 @@ class ListUser(admin.ModelAdmin):
     list_per_page = 10
     
 admin.site.register(User, ListUser)
+
+admin.site.site_header = "Painel Administrativo"
+admin.site.site_title = "Nobookie"
+admin.site.index_title = "Bem-vindo!"

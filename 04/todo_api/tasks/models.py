@@ -14,7 +14,7 @@ class Task(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField(blank=True,null=True)
     status = models.CharField(max_length=20,choices=Status.choices,default=Status.PENDING)
-    priority = models.IntegerField(choices=Priority.choices,default=Priority.MEDIUM)
+    priority = models.IntegerField(choices=Priority.choices,default=Priority.LOW)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     
