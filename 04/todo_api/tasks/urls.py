@@ -7,6 +7,6 @@ urlpatterns = [
     # URL para listar e criar tarefas
     path('tasks/', task_list_create_view, name='task-list-create'),
     # URL para ver, atualizar ou deletar uma tarefa específica
-    path('tasks//', task_detail_view, name='task-detail'),
+    path('tasks/<int:id>/', task_detail_view, name='task-detail'),
 ]
 
