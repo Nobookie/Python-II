@@ -27,7 +27,7 @@ SECRET_KEY = config('SECRET_KEY', default='chave-super-secreta', cast=str)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('APP_DEVELOPMENT', default=False, cast=bool)
 
-ALLOWED_HOSTS = config('APP_ALLOWED_HOSTS', default='127.0.0.1,localhost', cast=Csv())
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='127.0.0.1,localhost', cast=Csv())
 
 
 # Application definition
