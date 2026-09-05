@@ -78,7 +78,7 @@ WSGI_APPLICATION = 'todo_api.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/6.1/ref/settings/#databases
 
-tmpPostgres = urlparse(config("DATABASE_URL", cast=str))
+tmpPostgres = urlparse(config("DATABASE_URL", default='postgresql://usuario:senha@servidor/banco?sslmode=require&channel_binding=require', cast=str))
 
 DATABASES = {
     #'default': {
