@@ -78,7 +78,7 @@ WSGI_APPLICATION = 'todo_api.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/6.1/ref/settings/#databases
 
-tmpPostgres = urlparse(config("DATABASE_URL", default='postgresql://usuario:senha@servidor/banco?sslmode=require&channel_binding=require', cast=str))
+tmpPostgres = urlparse(config("DATABASE_URL", default='postgresql://usuario:senha@servidor:5432/banco?sslmode=require&channel_binding=require', cast=str)) # type: ignore
 
 DATABASES = {
     #'default': {
@@ -91,7 +91,7 @@ DATABASES = {
         'USER': tmpPostgres.username,
         'PASSWORD': tmpPostgres.password,
         'HOST': tmpPostgres.hostname,
-        'PORT': 5432,
+        'PORT': tmpPostgres.port,
         'OPTIONS': dict(parse_qsl(tmpPostgres.query)),
     }
 }
