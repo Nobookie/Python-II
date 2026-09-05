@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from .models import User
+from decouple import config
 
 class ListUser(admin.ModelAdmin):
     list_display = ('id','cpf','first_name','email','is_staff')
@@ -10,6 +11,6 @@ class ListUser(admin.ModelAdmin):
     
 admin.site.register(User, ListUser)
 
-admin.site.site_header = "Painel Administrativo"
-admin.site.site_title = "Nobookie"
-admin.site.index_title = "Bem-vindo!"
+admin.site.site_header = config('APP_NAME', default='Django', cast=str)
+admin.site.site_title = config('APP_NAME', default='Django', cast=str)
+admin.site.index_title = "Home"
