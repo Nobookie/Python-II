@@ -29,7 +29,6 @@ DEBUG = config('APP_DEVELOPMENT', default=False, cast=bool)
 
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='127.0.0.1,localhost', cast=Csv())
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -42,7 +41,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_simplejwt',
     'core',
-    'tasks'
+    'tasks',
+    'corsheaders' #Acrescenta CORS no deploy
 ]
 
 MIDDLEWARE = [
@@ -53,7 +53,16 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware' #Acrescenta CORS no deploy
 ]
+
+APP_USE_HTTPS = config('APP_USE_HTTPS', default=False, cast=bool)
+
+protocol = 'https' if APP_USE_HTTPS else 'http'
+
+CORS_ALLOWED_ORIGINS = [
+    f'{protocol}://{host}' for host in ALLOWED_HOSTS # type: ignore
+] #Acrescenta CORS no deploy
 
 ROOT_URLCONF = 'todo_api.urls'
 
