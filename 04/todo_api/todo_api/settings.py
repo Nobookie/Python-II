@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/6.1/ref/settings/
 """
 
 from pathlib import Path
+import os
 from decouple import config, Csv
 from urllib.parse import urlparse, parse_qsl
 
@@ -40,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework_simplejwt',
+    'rest_framework.authtoken',
     'core',
     'tasks',
     'corsheaders' #Acrescenta CORS no deploy
@@ -53,7 +55,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders.middleware.CorsMiddleware' #Acrescenta CORS no deploy
+    'corsheaders.middleware.CorsMiddleware', #Acrescenta CORS no deploy
+    'whitenoise.middleware.WhiteNoiseMiddleware'
 ]
 
 APP_USE_HTTPS = config('APP_USE_HTTPS', default=False, cast=bool)
@@ -101,7 +104,7 @@ DATABASES = {
         'PASSWORD': tmpPostgres.password,
         'HOST': tmpPostgres.hostname,
         'PORT': tmpPostgres.port,
-        'OPTIONS': dict(parse_qsl(tmpPostgres.query)),
+        'OPTIONS': dict(parse_qsl(tmpPostgres.query))
     }
 }
 
@@ -142,6 +145,11 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static')
+]
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Email
 # https://docs.djangoproject.com/en/6.1/topics/email/#topic-email-configuration
