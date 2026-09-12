@@ -2,8 +2,10 @@
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+from core.views import index
 
 urlpatterns = [
+    path('', index, name='home'),
     path('admin/', admin.site.urls),
     # Rotas de Autenticação e Usuários
     path('api/auth/', include('core.urls')),
