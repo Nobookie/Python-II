@@ -19,7 +19,6 @@ from django.urls import path, include
 from churras.views import index, churrasco
 
 urlpatterns = [
-    path('', index, name='home'),
     path('', include('churras.urls')),
     path('admin/', admin.site.urls)
 ]

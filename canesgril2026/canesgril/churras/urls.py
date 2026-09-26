@@ -1,6 +1,8 @@
 from django.urls import path
-from .views import churrasco
+from .views import *
 
 urlpatterns = [
-    path('churrasco', churrasco)
+    path('', index, name='index'),
+    path('buscar/', buscar, name='buscar'),
+    path('<int:id>', churrasco, name='churrasco')
 ]

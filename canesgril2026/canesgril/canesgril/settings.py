@@ -42,8 +42,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_simplejwt',
     'rest_framework.authtoken',
-    'churras',
     'usuarios',
+    'churras',
     'corsheaders' #Acrescenta CORS no deploy
 ]
 
@@ -160,7 +160,7 @@ MAILERS = {
     },
 }
 
-AUTH_USER_MODEL = 'usuarios.User'
+#AUTH_USER_MODEL = 'usuarios.User'
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
