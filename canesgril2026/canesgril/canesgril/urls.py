@@ -20,5 +20,6 @@ from churras.views import index, churrasco
 
 urlpatterns = [
     path('', include('churras.urls')),
+    path('', include('usuarios.urls')),
     path('admin/', admin.site.urls)
 ]
