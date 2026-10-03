@@ -11,3 +11,4 @@ python-decouple
 sqlparse
 tzdata
 whitenoise
+cloudinary

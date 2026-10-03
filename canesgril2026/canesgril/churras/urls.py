@@ -1,8 +1,10 @@
 from django.urls import path
 from .views import *
 
+app_name = 'churras'
+
 urlpatterns = [
     path('', index, name='index'),
-    path('buscar/', buscar, name='buscar'),
-    path('<int:id>', churrasco, name='churrasco')
+    path('busca/', buscar, name='buscar'),
+    path('prato/<int:id>', churrasco, name='churrasco')
 ]

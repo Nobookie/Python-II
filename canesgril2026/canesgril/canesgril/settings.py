@@ -14,6 +14,7 @@ from pathlib import Path
 import os
 from decouple import config, Csv
 from urllib.parse import urlparse, parse_qsl
+import cloudinary
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -150,6 +151,13 @@ STATICFILES_DIRS = [
 ]
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# Configuração do Cloudinary consumindo o .env
+cloudinary.config( 
+  cloud_name = config('CLOUDINARY_CLOUD_NAME', default='', cast=str), 
+  api_key = config('CLOUDINARY_API_KEY', default='', cast=str), 
+  api_secret = config('CLOUDINARY_API_SECRET', default='', cast=str) 
+)
 
 # Email
 # https://docs.djangoproject.com/en/6.1/topics/email/#topic-email-configuration
