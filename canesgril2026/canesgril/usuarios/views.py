@@ -7,6 +7,8 @@ from django.http import HttpRequest, HttpResponse
 from churras.models import Prato
 
 def cadastro(request: HttpRequest) -> HttpResponse:
+    if request.user.is_authenticated:
+        return redirect('churras:index')
     """Processa o registro de novos usuários aplicando Guard Clauses."""
     if request.method == 'POST':
         nome = request.POST.get('nome', '').strip()
@@ -32,6 +34,8 @@ def cadastro(request: HttpRequest) -> HttpResponse:
     return render(request, 'frm_usuario.html')
 
 def login_view(request: HttpRequest) -> HttpResponse:
+    if request.user.is_authenticated:
+        return redirect('churras:index')
     """Autentica o usuário na plataforma de forma segura."""
     if request.method == 'POST':
         email = request.POST.get('email', '').strip()

@@ -5,6 +5,6 @@ app_name = 'churras'
 
 urlpatterns = [
     path('', index, name='index'),
-    path('busca/', buscar, name='buscar'),
+    path('busca', buscar, name='buscar'),
     path('prato/<int:id>', churrasco, name='churrasco')
 ]
