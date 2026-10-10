@@ -19,21 +19,21 @@
             <!-- Padrão elegante: Loop direto com fallback para iteráveis vazios -->
             {% for prato in lista_pratos %}
                 <div class="col-12 col-sm-6 col-lg-4">
-                    <div class="single-best-receipe-area mb-30 shadow-sm">
-                        
-                        <!-- ALTERADO: Controle de simetria com altura fixa e object-fit -->
-                        {% if prato.foto_prato %}
-                            <img src="{{ prato.foto_prato.url }}" alt="{{ prato.nome_prato }}" style="height: 250px; width: 100%; object-fit: cover;">
-                        {% else %}
-                            <img src="{% static 'img/bg-img/foto_receita.png' %}" alt="Sem imagem" style="height: 250px; width: 100%; object-fit: cover;">
-                        {% endif %}
-                        
-                        <div class="receipe-content">
-                            <a href="{% url 'churras:churrasco' prato.id %}">
+                    <a href="{% url 'churras:churrasco' prato.id %}">
+                        <div class="single-best-receipe-area mb-30 shadow-sm">
+                            
+                            <!-- ALTERADO: Controle de simetria com altura fixa e object-fit -->
+                            {% if prato.foto_prato %}
+                                <img src="{{ prato.foto_prato.url }}" alt="{{ prato.nome_prato }}" style="height: 250px; width: 100%; object-fit: cover;">
+                            {% else %}
+                                <img src="{% static 'img/bg-img/foto_receita.png' %}" alt="Sem imagem" style="height: 250px; width: 100%; object-fit: cover;">
+                            {% endif %}
+                            
+                            <div class="receipe-content">
                                 <h5>{{ prato.nome_prato }}</h5>
-                            </a>
+                            </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
             {% empty %}
                 <div class="col-12">
