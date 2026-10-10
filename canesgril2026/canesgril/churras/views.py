@@ -9,7 +9,7 @@ def index(request):
     pratos_por_pagina = paginator.get_page(page)
     return render(request, 'index.html', {'lista_pratos': pratos_por_pagina})
 
-def churrasco(request, id):
+def churrasco(request, id, nome_prato):
     prato = get_object_or_404(Prato, id=id)
     return render(request, 'churrasco.html', {'prato': prato})
 

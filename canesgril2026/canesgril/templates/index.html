@@ -19,7 +19,7 @@
             <!-- Padrão elegante: Loop direto com fallback para iteráveis vazios -->
             {% for prato in lista_pratos %}
                 <div class="col-12 col-sm-6 col-lg-4">
-                    <a href="{% url 'churras:churrasco' prato.id %}">
+                    <a href="{% url 'churras:churrasco' prato.id prato.nome_prato|slugify %}">
                         <div class="single-best-receipe-area mb-30 shadow-sm">
                             
                             <!-- ALTERADO: Controle de simetria com altura fixa e object-fit -->
