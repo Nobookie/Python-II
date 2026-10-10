@@ -155,7 +155,7 @@ def cria_prato(request: HttpRequest) -> HttpResponse:
     return render(request, 'frm_pratos.html')
 
 @login_required(login_url='usuarios:login')
-def edita_prato(request: HttpRequest, prato_id: int) -> HttpResponse:
+def edita_prato(request: HttpRequest, prato_id: int, nome_prato: str) -> HttpResponse:
     prato = get_object_or_404(Prato, pk=prato_id, funcionario=request.user)
     return render(request, 'frm_pratos.html', {'prato': prato})
 
@@ -182,7 +182,7 @@ def atualiza_prato(request: HttpRequest) -> HttpResponse:
     return redirect('usuarios:dashboard')
 
 @login_required(login_url='usuarios:login')
-def deleta_prato(request: HttpRequest, prato_id: int) -> HttpResponse:
+def deleta_prato(request: HttpRequest, prato_id: int, nome_prato: str) -> HttpResponse:
     prato = get_object_or_404(Prato, pk=prato_id, funcionario=request.user)
     prato.delete()
     messages.success(request, 'Prato excluído com sucesso.')

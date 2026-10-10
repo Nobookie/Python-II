@@ -8,14 +8,14 @@ from usuarios.views import (
 app_name = 'usuarios'
 
 urlpatterns = [
-    path('cadastro', cadastro, name='cadastro'), 
-    path('login', login_view, name='login'),
-    path('dashboard', dashboard, name='dashboard'), 
+    path('cadastrar', cadastro, name='cadastro'), 
+    path('logar', login_view, name='login'),
+    path('painel', dashboard, name='dashboard'), 
     path('logout', logout_view, name='logout'),
-    path('cria-prato', cria_prato, name='cria_prato'),
-    path('deleta/<int:prato_id>', deleta_prato, name='deleta_prato'),
-    path('edita/<int:prato_id>', edita_prato, name='edita_prato'),
-    path('atualiza-prato', atualiza_prato, name='atualiza_prato'),
+    path('criar', cria_prato, name='cria_prato'),
+    path('deletar/<int:prato_id>/<slug:nome_prato>', deleta_prato, name='deleta_prato'),
+    path('editar/<int:prato_id>/<slug:nome_prato>', edita_prato, name='edita_prato'),
+    path('atualizar', atualiza_prato, name='atualiza_prato'),
     
     # NOVAS ROTAS: Controle de Perfil do Usuário
     path('perfil/editar', edita_perfil, name='edita_perfil'),
