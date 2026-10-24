@@ -1,5 +1,6 @@
 from django.contrib import admin
 from .models import Prato
+from decouple import config
 
 class ListandoPratos(admin.ModelAdmin):
     list_display = ('id', 'nome_prato', 'categoria', 'tempo_preparo', 'publicado')
@@ -17,3 +18,7 @@ class ListandoPratos(admin.ModelAdmin):
 
 # Register your models here.
 admin.site.register(Prato, ListandoPratos,)
+
+admin.site.site_header = config('APP_NAME', default='Django', cast=str)
+admin.site.site_title = config('APP_NAME', default='Django', cast=str)
+admin.site.index_title = "Home"
