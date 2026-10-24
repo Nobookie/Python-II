@@ -19,6 +19,6 @@ class ListandoPratos(admin.ModelAdmin):
 # Register your models here.
 admin.site.register(Prato, ListandoPratos,)
 
-admin.site.site_header = config('APP_NAME', default='Django', cast=str)
-admin.site.site_title = config('APP_NAME', default='Django', cast=str)
-admin.site.index_title = "Home"
+admin.site.site_header = config('APP_NAME', default='Canesgril', cast=str)
+admin.site.site_title = config('APP_NAME', default='Canesgril', cast=str)
+admin.site.index_title = "Início"
