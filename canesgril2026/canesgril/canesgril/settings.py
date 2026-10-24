@@ -46,19 +46,20 @@ INSTALLED_APPS = [
     'cloudinary',
     'usuarios',
     'churras',
-    'corsheaders' #Acrescenta CORS no deploy
+    'corsheaders', #Acrescenta CORS no deploy
+    'whitenoise.runserver_nostatic'
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders.middleware.CorsMiddleware', #Acrescenta CORS no deploy
-    'whitenoise.middleware.WhiteNoiseMiddleware'
+    'corsheaders.middleware.CorsMiddleware' #Acrescenta CORS no deploy
 ]
 
 APP_USE_HTTPS = config('APP_USE_HTTPS', default=False, cast=bool)
@@ -66,7 +67,7 @@ APP_USE_HTTPS = config('APP_USE_HTTPS', default=False, cast=bool)
 protocol = 'https' if APP_USE_HTTPS else 'http'
 
 CORS_ALLOWED_ORIGINS = [
-    f'{protocol}://{host}' for host in ALLOWED_HOSTS # type: ignore
+    f'{protocol}://{host}' for host in ALLOWED_HOSTS
 ] #Acrescenta CORS no deploy
 
 ROOT_URLCONF = 'canesgril.urls'
@@ -152,6 +153,8 @@ STATICFILES_DIRS = [
 ]
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Configuração do Cloudinary consumindo o .env
 cloudinary.config( 
